@@ -1,86 +1,31 @@
 <html>
 <head>
   <title>影.🅥</title>
+  <style>
+    body {
+      background-image: url('bj.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
 </head>
 <body>
-
-<script type="">
-    //设定密码
-    var password = 'ying2005';
-    //用户输入密码
-    var userInput = prompt('id');
-    //判断用户输入的密码是否正确
-    if(userInput == password) {
-        location.href="1.html";
-        alert('OK');
-    } else {
-        location.href="index.html";
-        alert('OK');
+  <div style="text-align: center;">
+    <input type="text" id="input_box" />
+    <button onclick="checkInput()">提交</button>
+  </div>
+  <script>
+    function checkInput() {
+      let input_val = document.getElementById('input_box').value;
+      if (input_val === 'ying2005') {
+        window.location.href = '1.html';
+      } else if (input_val === '2') {
+        window.location.href = '新页面2的 URL';
+      } else if (input_val === '3') {
+        window.location.href = '新页面3的 URL';
+      }
     }
-</script>
+  </script>
 </body>
-<!-- 禁止右键和禁止选中文字 -->
-	<body onselectstart="return false" oncontextmenu=self.event.returnValue=false>
-<!-- 禁止12代码 -->
-<script>function fuckyou(){
- window.close(); //关闭当前窗口(防抽)
- window.location="about:blank"; //将当前窗口跳转置空白页
-}
- function ck() {
- console.profile();
- console.profileEnd();
- //我们判断一下profiles里面有没有东西，如果有，肯定有人按F12了，没错！！
- if(console.clear) { console.clear() };
- if (typeof console.profiles =="object"){
- return console.profiles.length > 0;
- }
-}
-function hehe(){
-if( (window.console && (console.firebug || console.table && /firebug/i.test(console.table()) )) || (typeof opera == 'object' && typeof opera.postError == 'function' && console.profile.length > 0)){
- fuckyou();
-}
-if(typeof console.profiles =="object"&&console.profiles.length > 0){
-fuckyou();
-}
-}
-hehe();
-window.onresize = function(){
-if((window.outerHeight-window.innerHeight)>200)
-//判断当前窗口内页高度和窗口高度，如果差值大于200，那么呵呵
- fuckyou();
-}</script>
-<!-- 背景音乐代码 -->
-<audio autoplay="autoplay" loop></audio>
-<audio id="chat-message-audio">
-</audio>
-<script type="application/javascript">    function a() {
-        var e = document.getElementById("chat-message-audio-source").src
-            , b = document.getElementById("chat-message-audio");
-        b.src = "";
-                    b.autoplay='autoplay';
-            var p = b.play();
-            p && p.then(function(){}).catch(function(e){});
-            b.src = e;
-            jQuery(document).unbind("click", a);
-            b.play();
-        }
-        a();
-        jQuery(document).on("click", a);
-</script>
-<script>
-     document.oncontextmenu = function () { 
-         alert('浏览器提示：该网站代码已加密！');
-         return false; 
-         };
-        document.onkeydown = function () {
-            if (window.event && window.event.keyCode == 123) {
-                event.keyCode = 0;
-                event.returnValue = false;
-                alert('浏览器提示：该网站代码已加密！');
-                return false;
-            }
-        };
-    </script>
-</body>
-</html>
 </html>
