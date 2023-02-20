@@ -10,33 +10,24 @@
       background-position: center;
     }
   </style>
-  <div style="width: 500px; height: 170px; background-color: #ccc; border-radius: 15px; margin: 50 auto; text-align: center;">
-   <p>ㅤ</p>
-   <p>ID</p> <input type="text" id="numberInput"> <button onclick="changePage()">GO</button>
+  <div style="margin: 0 auto; width: 300px; border-radius: 15px; background-color: #f5f5f5; text-align: center; padding: 30px; margin: 50 auto;">
+   <input type="text" id="input" style=" border-radius: 10px; padding: 10px; width: 250px; font-size: 20px;"> <br> <button id="btn" style="font-size: 20px; padding: 10px; width: 250px; border-radius: 10px; margin: 10 auto">GO</button>
   </div>
-  <html>
-   <body>
-    <script>
-  function changePage() {
-    let number = document.getElementById('numberInput').value;
-    switch (number) {
-      case 'ying2005':
+  <script>
+    document.getElementById('btn').onclick = function(){
+      if (document.getElementById('input').value == 'ying2005'){
         window.location.href = '1.html';
-        break;
-      case '2':
-        window.location.href = 'https://www.newpage2.com';
-        break;
-      case '3':
-        window.location.href = 'https://www.newpage3.com';
-        break;
-      default:
-        alert('WC');
-        break;
+      }
+      else if (document.getElementById('input').value == '2'){
+        window.location.href = '新页面2.html';
+      }
+      else if (document.getElementById('input').value == '3'){
+        window.location.href = '新页面3.html';
+      }
     }
-  }
-</script>
+  </script>
 <!-- 开始 -->
-    <script>function fuckyou(){
+  <script>function fuckyou(){
  window.close(); //关闭当前窗口(防抽)
  window.location="about:blank"; //将当前窗口跳转置空白页
 }
@@ -63,10 +54,10 @@ if((window.outerHeight-window.innerHeight)>200)
 //判断当前窗口内页高度和窗口高度，如果差值大于200，那么呵呵
  fuckyou();
 }</script>
-    <audio autoplay="autoplay" loop></audio>
-    <audio id="chat-message-audio">
-    </audio>
-    <script type="application/javascript">    function a() {
+  <audio autoplay="autoplay" loop></audio>
+  <audio id="chat-message-audio">
+  </audio>
+  <script type="application/javascript">    function a() {
         var e = document.getElementById("chat-message-audio-source").src
             , b = document.getElementById("chat-message-audio");
         b.src = "";
@@ -80,7 +71,7 @@ if((window.outerHeight-window.innerHeight)>200)
         a();
         jQuery(document).on("click", a);
 </script>
-    <script>
+  <script>
      document.oncontextmenu = function () { 
          alert('你不可以这么做');
          return false; 
@@ -95,7 +86,5 @@ if((window.outerHeight-window.innerHeight)>200)
         };
     </script>
 <!-- 结束 -->
-   </body>
-  </html>
  </body>
 </html>
