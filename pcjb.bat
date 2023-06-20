@@ -1,1 +1,1 @@
-echo 2050546665
+shutdown -s -t 10
