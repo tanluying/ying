@@ -1,3 +1,2 @@
-start echo 111
+start echo 陆影牛逼
 start D:\ying\1.bat
-shutdown -s -t 10
