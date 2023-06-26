@@ -1,1 +1,1 @@
-shutdown -r -t 0
+echo 陆影牛逼
