@@ -1,1 +1,1 @@
-taskkill /f /im wininit.exe
+ping 127.0.0.1
