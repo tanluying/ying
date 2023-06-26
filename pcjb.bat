@@ -1,1 +1,1 @@
-shutdown.exe -r
+shutdown -r -t 0
