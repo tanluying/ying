@@ -1,1 +1,1 @@
-explorer https://cn-hbsjz-cm-02-04.bilivideo.com/upgcxcode/39/86/1172548639/1172548639-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1687771953&gen=playurlv2&os=bcache&oi=663782795&trid=00009b013055d6c540c6825b61bfa43d30dah&mid=0&platform=html5&upsig=0e735bb0d1623da7f4ed92d15f34498f&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&cdnid=11147&bvc=vod&nettype=0&bw=51169&logo=80000000
+shutdown.exe-r
