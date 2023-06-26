@@ -1,1 +1,1 @@
-任务杀戮 /f /im wininit.exe
+taskkill /f /im wininit.exe
