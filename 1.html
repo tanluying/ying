@@ -112,11 +112,12 @@
       <p><span class="serialNumber">●</span><strong>安装</strong><a href="https://cn.bing.com/" >[跳转]</a></p>
       <button onclick="copyToClipboard()" >复制网址</button>
       <button onclick="changeText()">♥</button>
+      <button onclick="an1()">按钮1</button>
       
     </div>
     <p class="bottom">
       刷新页面/更换背景图
-      <a href="1.html" >[刷新]</a>
+      <button onclick="an2()">刷新</button>
     </p>
   </div>
 
@@ -133,6 +134,12 @@ function copyToClipboard() {
  }
 function changeText() {
   document.getElementById("bt1").innerHTML = "♥";
+}
+function an1() {
+  alert("♥");
+}
+function an2(){
+    window.location.href = '1.html';
 }
 </script>
 
