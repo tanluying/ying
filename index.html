@@ -7,41 +7,12 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      
     }
-      #myPopup {
-      display: none; /* 默认隐藏 */
-      position: fixed; /* 固定在视口位置 */
-      top: 50%; /* 垂直居中 */
-      left: 50%; /* 水平居中 */
-      transform: translate(-50%, -50%); /* 居中定位 */
-      z-index: 9999; /* 位于其他元素之上 */
-      width: 600px; /* 宽度 */
-      height: 1000px; /* 高度 */
-      background-color: #f1f1f1; /* 背景色 */
-      border: 1px solid #ddd; /* 边框 */
-      padding: 20px; /* 内边距 */
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 阴影效果 */
-    }
-    #myPopup .close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      cursor: pointer;
-    }
-  
   </style>
   <div style="margin: 0 auto;width: 300px;border-radius: 15px;/* background-color: #f5f5f5; */text-align: center;padding: 30px;margin: 0 auto;">
   <input type="text" id="input" style=" border-radius: 10px; padding: 10px; width: 250px; font-size: 20px;"> <br> <button id="btn" style="font-size: 20px; padding: 10px; width: 250px; border-radius: 10px; margin: 10 auto">点击</button>
   <input id="lg" type="range" max="100" value="50">
   <button onclick="annn1()">♥</button>
-  
-   <button onclick="openPopup()">111</button>
-  <div id="myPopup">
-    <iframe src="https://tanluying.github.io/ying" style="width:100%; height:100%;"></iframe>
-    <span class="close" onclick="closePopup()">&times;</span>
-  </div>
-  
   </div>
   <script>
     document.getElementById('btn').onclick = function(){
@@ -65,12 +36,6 @@
 function annn1() {
   alert("♥");
 }
-    function openPopup() {
-      document.getElementById("myPopup").style.display = "block";
-    }
-    function closePopup() {
-      document.getElementById("myPopup").style.display = "none";
-    }
   </script>
  </body>
 </html>
