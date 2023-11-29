@@ -96,7 +96,7 @@
 <body>
   <div class="main">
     <div class="header">
-      <h1>影.🅥</h1>
+      <h1 id="bt1"> 影.🅥</h1>
     </div>
     <div class="content">
       <p><span class="serialNumber">●</span><strong>引导页面</strong><a href="index.html" >[GO]</a></p>
@@ -111,6 +111,7 @@
       <p><span class="serialNumber">●</span><strong>安装</strong><a href="https://cn.bing.com/" >[跳转]</a></p>
       <p><span class="serialNumber">●</span><strong>安装</strong><a href="https://cn.bing.com/" >[跳转]</a></p>
       <button onclick="copyToClipboard()" >复制网址</button>
+      <button onclick="changeText()">点击修改文本</button>
       
     </div>
     <p class="bottom">
@@ -130,6 +131,9 @@ function copyToClipboard() {
   alert("已复制到剪贴板");
   document.body.removeChild(myCopy);
  }
+function changeText() {
+  document.getElementById("bt1").innerHTML = "♥";
+}
 </script>
 
   </script>
