@@ -22,12 +22,24 @@
             height: 100%;
         }
 
-        body {
-            background-image: url(https://www.loliapi.com/acg/);
+         body {
+<!--            background-image: url(https://www.loliapi.com/acg/);-->
             background-size: cover;
---            background-size: 100% 100%;
+<!--            background-size: 100% 100%;-->
             background-position: center center;
             font-weight: bold;
+        }
+     
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.loliapi.com/acg/'); /* 替换为您的图片URL */
+            background-size: cover;
+            z-index: -1;
+            filter: blur(3px); /* 设置模糊程度 */
         }
 
         .main {
@@ -95,6 +107,7 @@
 <style type="">* {user-select: auto !important; -webkit-user-select: auto !important;}</style><input type="hidden" id="inject_idm_text_selection"><meta id="inject_idm_viewport" name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10, user-scalable=yes"></head>
 
 <body>
+    <div class="background-image"></div>
   <div class="main">
     <div class="header">
       <h1 id="bt1"></h1>
