@@ -42,14 +42,18 @@
             align-items: center;
         }
         .dock .icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
         }
         .desktop {
             /* ...之前的.desktop样式... */
             background-image: url('https://www.loliapi.com/acg/');
             background-size: cover; /* 覆盖整个屏幕 */
             background-position: center; /* 居中图片 */
+        }
+        body {
+        height: 100%;
+        font-weight: bold;
         }
     </style>
         <!-- 自适应大小 -->
@@ -71,9 +75,9 @@
     </div>
     <div class="dock">
         <!-- 底部Dock栏图标 -->
-        <div onclick="ann1()" class="icon">刷新</div>
-        <div class="icon">信息</div>
-        <div class="icon">浏览器</div>
+        <div onclick="ann1()" class="icon" <p style=" opacity: 0.5;" >刷新</div>
+        <div class="icon" <p style=" opacity: 0.5;" >信息</div>
+        <div class="icon" <p style=" opacity: 0.5;" >浏览器</div>
         <!-- 更多图标... -->
     </div>
     <script>
@@ -86,7 +90,7 @@
         function an3() {
         window.location.href = '3.html';
         }
-      
+        <!-- 底部Dock栏图标 -->
         function ann1() {
         window.location.href = '5.html';
         }
