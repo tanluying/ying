@@ -63,10 +63,10 @@
     <div class="desktop">
         <!-- 桌面图标 -->
         <div id="goFullScreen" class="icon" style="opacity: 0.5;">全屏</div>
-        <div onclick="an2()" class="icon" style="opacity: 0.5;">第三方文档</div>
-        <div onclick="an3()" class="icon" style="opacity: 0.5;">自适应PNG</div>
-        <div onclick="an4()" class="icon" style="opacity: 0.5;">午夜神应用集 密码:ojbk</div>
-        <div onclick="an1()" class="icon" style="opacity: 0.5;">♥</div>
+        <div onclick="an1()" class="icon" style="opacity: 0.5;">共享文档</div>
+        <div onclick="an2()" class="icon" style="opacity: 0.5;">自适应PNG</div>
+        <div onclick="an3()" class="icon" style="opacity: 0.5;">中科大测速</div>
+        <div onclick="an4()" class="icon" style="opacity: 0.5;">♥</div>
         <!-- 更多图标... -->
     </div>
     <div class="dock">
@@ -78,18 +78,18 @@
     </div>
     <script>
         function an1() {
-            alert("♥");
-        }
-        function an2() {
             window.location.href = 'https://www.sdocapp.com/s/iPeHhKEvFb2riSkRF';
         }
-        function an3() {
+        function an2() {
             window.location.href = '3.html';
+        }
+        function an3() {
+            window.location.href = 'https://test.ustc.edu.cn/';
         }
         function ann1() {
             window.location.href = '5.html';
         }
-        <!-- 全屏 -->
+        // 全屏
         var btn = document.getElementById("goFullScreen");
         btn.addEventListener("click", function() {
             if (document.documentElement.requestFullscreen) {
@@ -102,7 +102,7 @@
                 document.documentElement.msRequestFullscreen();
             }
         });
-      <!-- 全屏 -->
+        // 全屏
     </script>
 </body>
 </html>
