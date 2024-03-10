@@ -52,39 +52,6 @@
             height: 100%;
             font-weight: bold;
         }
-        /* 添加的悬浮窗样式 */
-        .modal {
-            display: none; /* 默认不显示 */
-            position: fixed; /* 固定定位 */
-            z-index: 1; /* 置于顶层 */
-            left: 0;
-            top: 0;
-            width: 100%; /* 宽度100% */
-            height: 100%; /* 高度100% */
-            overflow: auto; /* 如果需要滚动条 */
-            background-color: rgb(0,0,0); /* 背景颜色 */
-            background-color: rgba(0,0,0,0.4); /* 背景颜色，带有透明度 */
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 2% auto; /* 15% 从顶部和自动水平 */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%; /* 宽度80% */
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-      <!-- 悬浮窗 -->
     </style>
     <!-- 自适应大小 -->
     <style>* {user-select: auto !important; -webkit-user-select: auto !important;}</style>
@@ -96,19 +63,11 @@
     <div class="desktop">
         <!-- 桌面图标 -->
         <div id="goFullScreen" class="icon" style="opacity: 0.5;">全屏</div>
-        <div id="myBtn" class="icon" style="opacity: 0.5;">♥</div>
         <div onclick="an1()" class="icon" style="opacity: 0.5;">共享文档</div>
         <div onclick="an2()" class="icon" style="opacity: 0.5;">自适应PNG</div>
         <div onclick="an3()" class="icon" style="opacity: 0.5;">中科大测速</div>
+        <div onclick="an4()" class="icon" style="opacity: 0.5;">♥</div>
         <!-- 更多图标... -->
-        <!-- 悬浮窗 -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">×</span>
-                <iframe src="https://tanluying.github.io/ying" style="width:100%;height:87vh;"></iframe>
-            </div>
-        </div>
-        <!-- 悬浮窗 -->
     </div>
     <div class="dock">
         <!-- 底部Dock栏图标 -->
@@ -130,7 +89,7 @@
         function ann1() {
             window.location.href = '5.html';
         }
-        <!-- 全屏 -->
+        // 全屏
         var btn = document.getElementById("goFullScreen");
         btn.addEventListener("click", function() {
             if (document.documentElement.requestFullscreen) {
@@ -143,32 +102,7 @@
                 document.documentElement.msRequestFullscreen();
             }
         });
-      <!-- 全屏 -->
-      <!-- 悬浮窗 -->
-        // 获取模态框元素
-        var modal = document.getElementById("myModal");
-        // 获取按钮元素，用于打开模态框
-        var btn = document.getElementById("myBtn");
-        // 获取<span>元素，用于关闭模态框
-        var span = document.getElementsByClassName("close")[0];
-
-        // 当用户点击按钮时，打开模态框
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // 当用户点击<span> (x), 关闭模态框
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // 当用户点击模态框之外的区域，也应关闭模态框
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        <!-- 悬浮窗 -->
+        // 全屏
     </script>
 </body>
 </html>
