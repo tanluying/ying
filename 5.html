@@ -62,22 +62,21 @@
 <body>
     <div class="desktop">
         <!-- 桌面图标 -->
-        <div id="goFullScreen" class="icon" style="opacity: 0.5;">全屏</div>
-        <div onclick="an1()" class="icon" style="opacity: 0.5;">共享文档</div>
-        <div onclick="an2()" class="icon" style="opacity: 0.5;">自适应PNG</div>
-        <div onclick="an3()" class="icon" style="opacity: 0.5;">中科大测速</div>
-        <div onclick="an4()" class="icon" style="opacity: 0.5;">中转网盘</div>
-        <div onclick="an5()" class="icon" style="opacity: 0.5;">引导页面</div>
-        <div onclick="an6()" class="icon" style="opacity: 0.5;">图片识别</div>
-        <div onclick="an7()" class="icon" style="opacity: 0.5;">♥</div>
-        <div onclick="an8()" class="icon" style="opacity: 0.5;">网页获源</div>
+        <div onclick="an1()" class="icon" style="opacity: 0.8;">共享文档</div>
+        <div onclick="an2()" class="icon" style="opacity: 0.8;">自适应PNG</div>
+        <div onclick="an3()" class="icon" style="opacity: 0.8;">中科大测速</div>
+        <div onclick="an4()" class="icon" style="opacity: 0.8;">中转网盘</div>
+        <div onclick="an5()" class="icon" style="opacity: 0.8;">引导页面</div>
+        <div onclick="an6()" class="icon" style="opacity: 0.8;">图片识别</div>
+        <div onclick="an7()" class="icon" style="opacity: 0.8;">♥</div>
+        <div onclick="an8()" class="icon" style="opacity: 0.8;">网页获源</div>
         <!-- 更多图标... -->
     </div>
     <div class="dock">
         <!-- 底部Dock栏图标 -->
-        <div onclick="ann1()" class="icon" style="opacity: 0.5;">刷新</div>
-        <div class="icon" style="opacity: 0.5;">信息</div>
-        <div class="icon" style="opacity: 0.5;">浏览器</div>
+        <div onclick="ann1()" class="icon" style="opacity: 0.8;">刷新</div>
+        <div onclick="an7()" class="icon" style="opacity: 0.8;">♥</div>
+        <div id="qp" class="icon" style="opacity: 0.8;">全屏</div>
         <!-- 更多图标... -->
     </div>
     <script>
@@ -109,7 +108,7 @@
             window.location.href = '5.html';
         }
         // 全屏
-        var btn = document.getElementById("goFullScreen");
+        var btn = document.getElementById("qp");
         btn.addEventListener("click", function() {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
