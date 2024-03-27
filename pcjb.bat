@@ -1,1 +1,1 @@
-echo 111
+start https://upos-sz-mirrorali.bilivideo.com/upgcxcode/65/31/1349743165/1349743165-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1711535238&gen=playurlv2&os=alibv&oi=0&trid=3aa9cbc1ea3f4134b672dbd0c7e22be0h&mid=0&platform=html5&upsig=59ea4e89dcf9742d8014b7c318da58f9&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&bvc=vod&nettype=0&f=h_0_0&bw=49821&logo=80000000
