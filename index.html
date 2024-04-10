@@ -53,13 +53,18 @@
         }
     </style>
     <!-- 自适应大小 -->
-    <style>* {user-select: auto !important; -webkit-user-select: auto !important;}</style>
+    <style>
+        * {
+            user-select: auto !important;
+            -webkit-user-select: auto !important;
+        }
+    </style>
     <input type="hidden" id="inject_idm_text_selection">
     <meta id="inject_idm_viewport" name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10, user-scalable=yes">
     <!-- 自适应大小 -->
 </head>
 <body>
-    <div class="desktop">
+<div class="desktop">
     <div id="controls" style="text-align: center;padding: 0px;margin: 0 auto;">
         <!-- 桌面图标 -->
         <div onclick="an1()" class="icon" style="opacity: 0.5;">共享文档</div>
@@ -75,66 +80,68 @@
     </div>
     <div class="dock">
         <div id="controls1" style="text-align: center;padding: 0px;margin: 0 auto;">
-        <!-- 底部Dock栏图标 -->
-        <div onclick="ann1()" class="icon" style="opacity: 0.5;">刷新</div>
-        <div onclick="ann2()" class="icon" style="opacity: 0.5;">♥</div>
-        <div id="ann3" class="icon" style="opacity: 0.5;">隐藏</div>
-        <div id="qp" class="icon" style="opacity: 0.5;">全屏</div>
-        <!-- 更多图标... -->
+            <!-- 底部Dock栏图标 -->
+            <div onclick="ann1()" class="icon" style="opacity: 0.5;">刷新</div>
+            <div onclick="ann2()" class="icon" style="opacity: 0.5;">♥</div>
+            <div id="ann3" class="icon" style="opacity: 0.5;">隐藏</div>
+            <div id="qp" class="icon" style="opacity: 0.5;">全屏</div>
+            <!-- 更多图标... -->
+        </div>
     </div>
-    <script>
-        function an1() {
-            window.location.href = 'https://www.sdocapp.com/s/iPeHhKEvFb2riSkRF';
+</div>
+<script>
+    function an1() {
+        window.location.href = 'https://www.sdocapp.com/s/iPeHhKEvFb2riSkRF';
+    }
+    function an2() {
+        window.location.href = 'png.html';
+    }
+    function an3() {
+        window.location.href = 'https://test.ustc.edu.cn/';
+    }
+    function an4() {
+        window.location.href = 'https://wwvs.lanzoub.com/b02q3ivkb';
+    }
+    function an5() {
+        window.location.href = 'tz.html';
+    }
+    function an6() {
+        window.location.href = 'https://yandex.com/images/touch/?utm_source=yandex&utm_medium=com&utm_campaign=morda&lr=10590&redircnt=1702143134.1';
+    }
+    function an7() {
+        window.location.href = 'https://www.yuque.com/yuqueyonghuxd6cxl/qdzxvy/bgbnhio8qwwgbypv?';
+    }
+    function an8() {
+        window.location.href = 'https://www.toolnb.com/tools/fangzhan.html';
+    }
+    function an9() {
+        window.location.href = 'https://www.testufo.com/';
+    }
+    function ann1() {
+        window.location.href = 'index.html';
+    }
+    function ann2() {
+        alert("♥");
+    }
+    // 全屏
+    var btn = document.getElementById("qp");
+    btn.addEventListener("click", function() {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+            document.documentElement.msRequestFullscreen();
         }
-        function an2() {
-            window.location.href = 'png.html';
-        }
-        function an3() {
-            window.location.href = 'https://test.ustc.edu.cn/';
-        }
-        function an4() {
-            window.location.href = 'https://wwvs.lanzoub.com/b02q3ivkb';
-        }
-        function an5() {
-            window.location.href = 'tz.html';
-        }
-        function an6() {
-            window.location.href = 'https://yandex.com/images/touch/?utm_source=yandex&utm_medium=com&utm_campaign=morda&lr=10590&redircnt=1702143134.1';
-        }
-        function an7() {
-            window.location.href = 'https://www.yuque.com/yuqueyonghuxd6cxl/qdzxvy/bgbnhio8qwwgbypv?';
-        }
-        function an8() {
-            window.location.href = 'https://www.toolnb.com/tools/fangzhan.html';
-        }
-        function an9() {
-            window.location.href = 'https://www.testufo.com/';
-        }
-        function ann1() {
-            window.location.href = 'index.html';
-        }
-        function ann2() {
-            alert("♥");
-        }
-        // 全屏
-        var btn = document.getElementById("qp");
-        btn.addEventListener("click", function() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-                document.documentElement.msRequestFullscreen();
-            }
-        });
-        // 全屏
-          document.getElementById('ann3').onclick = function () {
-          document.getElementById('controls').style.display = 'none';
-          document.getElementById('controls1').style.display = 'none';
-          }
-        // 全屏
-    </script>
+    });
+    // 全屏
+    document.getElementById('ann3').onclick = function () {
+        document.getElementById('controls').style.display = 'none';
+        document.getElementById('controls1').style.display = 'none';
+    }
+    // 全屏
+</script>
 </body>
 </html>
