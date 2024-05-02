@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Tab Page with Bottom Taskbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
-        body,
-        html {
+        body, html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -16,7 +15,6 @@
             background-size: cover;
             background-position: center center;
             font-weight: bold;
-            /* 设置全局字体为超粗 */
         }
 
         .tab-container {
@@ -39,9 +37,7 @@
             background-color: #e0e0e0;
             cursor: pointer;
             border-radius: 5px;
-            /* 圆角矩形 */
             transition: background-color 0.3s;
-            /* 平滑过渡效果 */
         }
 
         .tab-header button.active {
@@ -66,30 +62,24 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0); /* 白色背景，透明度为50% */
+            background-color: rgba(0, 0, 0, 0); /* 透明背景 */
             padding: 10px;
-            border-top: 0px solid #ddd;
+            border-top: 1px solid #00000000;
             display: flex;
             justify-content: center;
         }
 
-        .bottom-taskbar button {
+        .bottom-taskbar i {
             padding: 10px;
             margin: 0 5px;
             border: none;
-            background-color: #002B80;
-            /* 克莱茵兰颜色 */
-            color: white;
-            border-radius: 5px;
-            /* 圆角矩形 */
+            color: #002B80; /* 图标颜色 */
             cursor: pointer;
-            transition: background-color 0.3s;
-            /* 平滑过渡效果 */
+            transition: color 0.3s;
         }
 
-        .bottom-taskbar button.active {
-            background-color: #0035A4;
-            /* 深一点的克莱茵兰颜色 */
+        .bottom-taskbar i.active {
+            color: #0035A4; /* 深一点的克莱茵兰颜色 */
         }
 
         .tab-content button {
@@ -126,46 +116,41 @@
         }
     </style>
 </head>
-
 <body>
 
-    <div class="tab-container">
-        <div class="tab-content" id="controls">
-            <div class="tab active">
-                <div onclick="ann1()" class="icon" style="opacity: 1;">刷新</div>
-                <div onclick="ann2()" class="icon" style="opacity: 1;">♥</div>
-                <div id="qp" class="icon" style="opacity: 1;">全屏</div>
-                <div id="ann3" class="icon" style="opacity: 1;">隐藏</div>
-                <div onclick="an1()" class="icon" style="opacity: 1;">共享文档</div>
-                <div onclick="an2()" class="icon" style="opacity: 1;">自适应PNG</div>
-                <div onclick="an3()" class="icon" style="opacity: 1;">中科大测速</div>
-                <div onclick="an4()" class="icon" style="opacity: 1;">中转网盘</div>
-                <div onclick="an5()" class="icon" style="opacity: 1;">跳转测试</div>
-                <div onclick="an6()" class="icon" style="opacity: 1;">图片识别</div>
-                <div onclick="an7()" class="icon" style="opacity: 1;">午夜神</div>
-                <div onclick="an8()" class="icon" style="opacity: 1;">网页获源</div>
-                <div onclick="an9()" class="icon" style="opacity: 1;">屏幕测试</div>
-                <div onclick="an10()" class="icon" style="opacity: 1;">BATA</div>
-            </div>
-            <div class="tab">
-                <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
-                <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
-                <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
-            </div>
-            <div class="tab">
-                111
-            </div>
+<div class="tab-container">
+    <div class="tab-content" id="controls">
+        <div class="tab active">
+            <div onclick="ann1()" class="icon" style="opacity: 1;">刷新</div>
+            <div onclick="ann2()" class="icon" style="opacity: 1;">♥</div>
+            <div id="qp" class="icon" style="opacity: 1;">全屏</div>
+            <div id="ann3" class="icon" style="opacity: 1;">隐藏</div>
+            <div onclick="an1()" class="icon" style="opacity: 1;">共享文档</div>
+            <div onclick="an2()" class="icon" style="opacity: 1;">自适应PNG</div>
+            <div onclick="an3()" class="icon" style="opacity: 1;">中科大测速</div>
+            <div onclick="an4()" class="icon" style="opacity: 1;">中转网盘</div>
+            <div onclick="an5()" class="icon" style="opacity: 1;">跳转测试</div>
+            <div onclick="an6()" class="icon" style="opacity: 1;">图片识别</div>
+            <div onclick="an7()" class="icon" style="opacity: 1;">午夜神</div>
+            <div onclick="an8()" class="icon" style="opacity: 1;">网页获源</div>
+            <div onclick="an9()" class="icon" style="opacity: 1;">屏幕测试</div>
+            <div onclick="an10()" class="icon" style="opacity: 1;">BATA</div>
+        </div>
+        <div class="tab">
+            <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
+            <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
+            <img id="tab3-image" src="lp.jpg" alt="Image Placeholder">
         </div>
     </div>
+</div>
 
-    <div class="bottom-taskbar" id="controls1">
-        <button onclick="switchTab(0)">主页</button>
-        <button onclick="switchTab(1)">测试</button>
-        <button onclick="switchTab(2)">测试</button>
-    </div>
+<div class="bottom-taskbar" id="controls1">
+    <i class="fas fa-home" onclick="switchTab(0)"></i>
+    <i class="fas fa-flask" onclick="switchTab(1)"></i>
+</div>
 
-    <script>
-        function switchTab(index) {
+<script>
+    function switchTab(index) {
             var tabs = document.querySelectorAll('.tab');
             tabs.forEach(function (tab) {
                 tab.classList.remove('active');
@@ -241,8 +226,7 @@
             document.getElementById('controls1').style.display = 'none';
         }
         // 全屏
-    </script>
+</script>
 
 </body>
-
 </html>
