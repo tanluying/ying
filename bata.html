@@ -62,6 +62,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+            backdrop-filter: blur(100px);
             background-color: rgba(0, 0, 0, 0); /* 透明背景 */
             padding: 10px;
             border-top: 1px solid #00000000;
@@ -76,10 +77,6 @@
             color: #002B80; /* 图标颜色 */
             cursor: pointer;
             transition: color 0.3s;
-        }
-
-        .bottom-taskbar i.active {
-            color: #0035A4; /* 深一点的克莱茵兰颜色 */
         }
 
         .tab-content button {
@@ -101,18 +98,17 @@
             height: 60px;
             margin: 2px;
             float: left;
-            background-color: #000000;
-            background-image: url('zmtp.png');
+            backdrop-filter: blur(100px);
             background-size: cover;
             background-position: center;
             border-radius: 14px;
             box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
             display: flex;
             justify-content: center;
-            align-items: end;
+            align-items: center;
             font-size: 10px;
             text-align: center;
-            color: #ffffff;
+            color: #ff0000;
         }
     </style>
 </head>
