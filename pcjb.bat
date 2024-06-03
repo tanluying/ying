@@ -1,2 +1,1 @@
-@echo off
-nircmd.exe setsysvolume 100
+start https://www.loliapi.com/acg/
