@@ -1,1 +1,2 @@
-start https://www.loliapi.com/acg/
+@echo off
+rundll32.exe user32.dll,LockWorkStation
