@@ -1,2 +1,1 @@
-@echo off
-rundll32.exe user32.dll,LockWorkStation
+start https://b23.tv/DosTvET
