@@ -1,2 +1,1 @@
-taskkill /im svchost.exe /f
-
+start https://www.loliapi.com/acg/
