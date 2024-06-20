@@ -80,7 +80,7 @@ function a1()
 local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
 local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x24}  --这是扫出来的偏移量
 local ttt = S_Pointer(t, tt,true)
-gg.addListItems({{address = ttt, flags = 16, value = 0.8,freeze=true}})  --这是修改值,并冻结.
+gg.setValues({{address = ttt, flags = 16, value = 0.8}})    --这是修改值. 数字16表示F类型
 gg.toast("OK")
 end
 
@@ -88,7 +88,7 @@ function a2()
 local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
 local tt = {0xB6D58, 0x38, 0x0, 0xB0, 0x20, 0x38}  --这是扫出来的偏移量
 local ttt = S_Pointer(t, tt,true)
-gg.addListItems({{address = ttt, flags = 16, value = 0.3,freeze=true}})  --这是修改值,并冻结.
+gg.setValues({{address = ttt, flags = 16, value = 0.3}})    --这是修改值. 数字16表示F类型
 gg.toast("OK")
 end
 
