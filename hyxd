@@ -53,6 +53,67 @@ function S_Pointer(t_So, t_Offset, _bit)
 	return _A
 end
 
+gg.alert("先退出脚本选择游戏进程再启动辅助,功能要在大厅开,对局内开必拉闸和减伤")
+function Main()
+SN = gg.multiChoice({
+"锁甲",
+"退出辅助"
+}, nil, "大厅开功能")
+if SN == nil then
+else
+if SN[1] == true then
+a1()
+end
+if SN[2] == true then
+exit()
+end
+end
+
+XGCK = -1
+end
+
+function a1()
+local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
+local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x24}  --这是扫出来的偏移量
+local ttt = S_Pointer(t, tt,true)
+gg.addListItems({{address = ttt, flags = 16, value = 3,freeze=true}})  --这是修改值,并冻结.
+gg.toast("OK")
+end
+
+function exit()
+print("欢迎下次光临")
+os.exit()
+end
+
+cs = "111"
+while true do
+if gg.isVisible(true) then
+XGCK = 1
+gg.setVisible(false)
+end
+gg.clearResults()
+if XGCK == 1 then
+Main()
+end
+end					t = {}
+					for _ in pairs(S) do
+						if not ti.x64 then
+							S[_].value = S[_].value & 0xFFFFFFFF
+						end
+						t[#t + 1] = {}
+						t[#t].address = S[_].value + Offset[i]
+						t[#t].flags = _t
+					end
+				end
+			end
+			_S = t[#t].address
+		end
+		return _S
+	end
+	local _A = string.format('0x%X', Get_Address(t_So, t_Offset, _bit))
+	return _A
+end
+
 function Main0()
 SN = gg.choice({ --单选框
 "锁甲",  --功能名称
