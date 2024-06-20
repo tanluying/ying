@@ -53,10 +53,11 @@ function S_Pointer(t_So, t_Offset, _bit)
 	return _A
 end
 
-gg.alert("先退出脚本选择游戏进程再启动辅助,功能要在大厅开,对局内开必拉闸和减伤")
+gg.alert("功能要在大厅开,对局内开必拉闸和减伤")
 function Main()
 SN = gg.multiChoice({
 "锁甲",
+"锁头",
 "退出辅助"
 }, nil, "大厅开功能")
 if SN == nil then
@@ -65,6 +66,9 @@ if SN[1] == true then
 a1()
 end
 if SN[2] == true then
+a2()
+end
+if SN[3] == true then
 exit()
 end
 end
@@ -76,7 +80,15 @@ function a1()
 local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
 local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x24}  --这是扫出来的偏移量
 local ttt = S_Pointer(t, tt,true)
-gg.addListItems({{address = ttt, flags = 16, value = 3,freeze=true}})  --这是修改值,并冻结.
+gg.addListItems({{address = ttt, flags = 16, value = 0.8,freeze=true}})  --这是修改值,并冻结.
+gg.toast("OK")
+end
+
+function a2()
+local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
+local tt = {0xB6D58, 0x38, 0x0, 0xB0, 0x20, 0x38}  --这是扫出来的偏移量
+local ttt = S_Pointer(t, tt,true)
+gg.addListItems({{address = ttt, flags = 16, value = 0.3,freeze=true}})  --这是修改值,并冻结.
 gg.toast("OK")
 end
 
