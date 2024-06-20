@@ -95,49 +95,4 @@ gg.clearResults()
 if XGCK == 1 then
 Main()
 end
-end					t = {}
-					for _ in pairs(S) do
-						if not ti.x64 then
-							S[_].value = S[_].value & 0xFFFFFFFF
-						end
-						t[#t + 1] = {}
-						t[#t].address = S[_].value + Offset[i]
-						t[#t].flags = _t
-					end
-				end
-			end
-			_S = t[#t].address
-		end
-		return _S
-	end
-	local _A = string.format('0x%X', Get_Address(t_So, t_Offset, _bit))
-	return _A
-end
-
-function Main0()
-SN = gg.choice({ --单选框
-"锁甲",  --功能名称
-"退出脚本",
-}, nil, "先退出脚本选游戏") --标题
-if SN==1 then HS1() end  
-if SN==2 then os.exit() end
-FX1=0
-end
-
-function HS1()
-local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
-local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x24}  --这是扫出来的偏移量
-local ttt = S_Pointer(t, tt,true)
-gg.addListItems({{address = ttt, flags = 16, value = 3,freeze=true}})  --这是修改值,并冻结.
-  gg.toast("OK") 
-end
-
-while true do
-if gg.isVisible(true) then
-    FX1 = nil
-    gg.setVisible(false)
-  end
-  if FX1 == nil then
-    Main0()
-  end
 end
