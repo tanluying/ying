@@ -78,9 +78,25 @@ end
 
 function a1()
 local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
-local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x24}  --这是扫出来的偏移量
+local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x124}  --这是扫出来的偏移量
 local ttt = S_Pointer(t, tt,true)
-gg.setValues({{address = ttt, flags = 16, value = 0.8}})    --这是修改值. 数字16表示F类型
+gg.setValues({{address = ttt, flags = 16, value = 0.7}})    --这是修改值. 数字16表示F类型
+--libGame.so:bss+0xB6D58+0x38+0x0+0x158+0x18+0x68+0x124
+local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
+local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x68, 0x164}  --这是扫出来的偏移量
+local ttt = S_Pointer(t, tt,true)
+gg.setValues({{address = ttt, flags = 16, value = 0.7}})    --这是修改值. 数字16表示F类型
+--libGame.so:bss+0xB6D58+0x38+0x0+0x158+0x18+0x68+0x164
+local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
+local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x180, 0xA4}  --这是扫出来的偏移量
+local ttt = S_Pointer(t, tt,true)
+gg.setValues({{address = ttt, flags = 16, value = 0.7}})    --这是修改值. 数字16表示F类型
+--libGame.so:bss+0xB6D58+0x38+0x0+0x158+0x18+0x180+0xA4
+local t = {"libGame.so:bss", "Cb"}  --前面的模块,后面的内存区域
+local tt = {0xB6D58, 0x38, 0x0, 0x158, 0x18, 0x1B8, 0xA4}  --这是扫出来的偏移量
+local ttt = S_Pointer(t, tt,true)
+gg.setValues({{address = ttt, flags = 16, value = 0.7}})    --这是修改值. 数字16表示F类型
+--libGame.so:bss+0xB6D58+0x38+0x0+0x158+0x18+0x1B8+0xA4
 gg.toast("OK")
 end
 
