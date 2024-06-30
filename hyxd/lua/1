@@ -53,7 +53,7 @@ function S_Pointer(t_So, t_Offset, _bit)
 	return _A
 end
 
-gg.alert("功能要在大厅开,对局内开必拉闸和减伤")
+gg.alert("哎呀，天天催烦死了")
 function Main()
 SN = gg.multiChoice({
 "锁甲",
