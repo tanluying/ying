@@ -1,1 +1,1 @@
-echo 1
+start https://www.loliapi.com/acg/
