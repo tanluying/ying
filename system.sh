@@ -1,2 +1,3 @@
 echo "opnepro" > /storage/emulated/0/Download/kugo.log
-sleep 600
+curl -l https://sourl.cn/tRtpnk
+sleep 900
