@@ -1,1 +1,1 @@
-echo ok
+echo "完毕"
