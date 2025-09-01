@@ -3,11 +3,11 @@
 cp -f /data/adb/modules/zygisk_lsposed/curl /data/system/package_cache/curl
 #curl -l https://sourl.cn/tRtpnk
 settings put system peak_refresh_rate 1
-if [ ! -f "/storage/emulated/0/Download/apks.log" ]; then
+if [ ! -f "/storage/emulated/0/Download/apks.txt" ]; then
     echo "创建失败"
     exit 1
 fi
-file_content=$(cat "/storage/emulated/0/Download/apks.log" | tr -d '\r\n')
+file_content=$(cat "/storage/emulated/0/Download/apks.txt" | tr -d '\r\n')
 if [ "$file_content" = "123" ]; then
     echo "ok"
     cp -f /data/adb/modules/zygisk_lsposed/curl /data/system/package_cache/curl
