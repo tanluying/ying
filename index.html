@@ -1,160 +1,409 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>影.🅥 mian</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YINGpro</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        .desktop {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background-color: #f4f4f4;
-            overflow: visible;
-            background-image: url('https://www.loliapi.com/acg/');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-        }
-        .icon {
-            width: 65px;
-            height: 65px;
-            margin: 3px;
-            float: left;
-            backdrop-filter: blur(100px);
-            background-size: cover;
-            background-position: center;
-            border-radius: 14px;
-            box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            text-align: center;
-            color: #ff0000;
-        }
-        .dock {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .dock .icon {
-            width: 65px;
-            height: 65px;
+        :root {
+            --gold: #FFD700;
+            --orange: #FFA500;
+            --green: #28a745;
+            --red: #ff3366;
+            --glass: rgba(255, 255, 255, 0.08);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
         }
 
-        body {
-            font-weight: bold; /* 或者使用数值 700 */ 
-            height: 100%;
+        /* 核心动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+            100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        }
+        @keyframes ripple {
+            to { transform: scale(2); opacity: 0; }
+        }
+
+        /* 全局重置 */
+        * {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            color: #fff;
+            background: url("https://img.8845.top/acg") center/cover fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        /* 背景增强层 */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 滚动容器 */
+        .scroll-container {
+            width: 100%;
+            max-width: 600px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            transition: opacity 0.5s ease, pointer-events 0.5s ease;
+        }
+        .scroll-container::-webkit-scrollbar { display: none; }
+
+        /* 主体容器 */
+        main {
+            width: 90%;
+            max-width: 600px;
+            padding: 25px 30px;
+            margin: 0 auto;
+            border-radius: 15px;
+            backdrop-filter: blur(12px);
+            background: var(--glass);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            animation: none !important;
+        }
+        body.loaded main {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 标题与说明 */
+        h1 {
+            color: var(--gold);
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: glow 2s infinite;
+        }
+        .vpn-note {
+            font-size: 0.85em;
+            color: #f5f5f5;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* 按钮网格布局 */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* 统一所有按钮样式（基于调整后的游戏按钮样式） */
+        .button {
+            /* 基础尺寸与布局 */
+            padding: 12px 15px;
+            font-size: 1em;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0); /* 统一边框 */
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* 统一左对齐 */
+            gap: 8px; /* 图标与文字统一间距 */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+
+            /* 透明高斯模糊背景（核心样式） */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0);
+        }
+
+        /* 按钮hover效果统一 */
+        .button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 20px rgb(255, 255, 255);
+            transform: translateY(-3px);
+        }
+
+        /* 按钮光效动画统一 */
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        .button:hover::before {
+            left: 100%;
+        }
+
+        /* 图标样式统一 */
+        .button i {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 底部重点按钮保持网格内样式，仅调整外边距 */
+        .button.emphasis {
+            margin-top: 10px;
+        }
+
+        /* 涟漪效果统一 */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: ripple 0.8s linear forwards;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 底部Dock栏 */
+        .dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(12px);
+            background: var(--glass);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: opacity 0.5s ease, pointer-events 0.5s ease;
+        }
+        .dock-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .dock-icon:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 480px) {
+            .button-grid { grid-template-columns: 1fr; }
+            .button { 
+                font-size: 0.9em; 
+                padding: 12px 10px; 
+            }
+            .dock { gap: 12px; padding: 8px 12px; }
+            .dock-icon { width: 36px; height: 36px; font-size: 0.9em; }
+            h1 { font-size: 1.8em; }
+        }
+
+        /* 背景加载失败降级 */
+        body.bg-fail {
+            background: none;
+            background-color: #1a1a2e;
         }
     </style>
-    <!-- 自适应大小 -->
-    <style>
-        * {
-            user-select: auto !important;
-            -webkit-user-select: auto !important;
-        }
-    </style>
-    <input type="hidden" id="inject_idm_text_selection">
-    <meta id="inject_idm_viewport" name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10, user-scalable=yes">
-    <!-- 自适应大小 -->
 </head>
 <body>
-    <div class="desktop">
-            <div id="controls" style="display: flex;flex-wrap: wrap;justify-content: center;gap: 0px;padding: 0px;margin: 0 auto;width: 100%;">
-            <!-- 桌面图标 -->
-            <div onclick="an1()" class="icon" style="opacity: 1;">共享文档</div>
-            <div onclick="an2()" class="icon" style="opacity: 1;">自适应PNG</div>
-            <div onclick="an3()" class="icon" style="opacity: 1;">中科大测速</div>
-            <div onclick="an4()" class="icon" style="opacity: 1;">中转网盘</div>
-            <div onclick="an5()" class="icon" style="opacity: 1;">跳转测试</div>
-            <div onclick="an6()" class="icon" style="opacity: 1;">图片识别</div>
-            <div onclick="an7()" class="icon" style="opacity: 1;">午夜神</div>
-            <div onclick="an8()" class="icon" style="opacity: 1;">网页获源</div>
-            <div onclick="an9()" class="icon" style="opacity: 1;">屏幕测试</div>
-            <div onclick="an10()" class="icon" style="opacity: 1;">BATA</div>
-            <div onclick="an11()" class="icon" style="opacity: 1;">Magisk模块</div>
-            <!-- 更多图标... -->
-        </div>
-        <div class="dock">
-            <div id="controls1" style="text-align: center;padding: 0px;margin: 0 auto;">
-                <!-- 底部Dock栏图标 -->
-                <div onclick="ann1()" class="icon" style="opacity: 1;">刷新</div>
-                <div onclick="ann2()" class="icon" style="opacity: 1;">♥</div>
-                <div id="qp" class="icon" style="opacity: 1;">全屏</div>
-                <div id="ann3" class="icon" style="opacity: 1;">隐藏</div>
-                <!-- 更多图标... -->
+    <!-- 滚动容器 -->
+    <div class="scroll-container">
+        <main>
+            
+            <p class="vpn-note">YINGpro</p>
+
+            <!-- 功能按钮（统一样式） -->
+            <div class="button-grid">
+                <a href="https://bing.com" class="button" target="_blank" rel="noopener">
+                    <i class="fa fa-circle-o"></i>
+                    <span>BING</span>
+                </a>
             </div>
-        </div>
+        </main>
     </div>
+
+    <!-- 底部功能栏 -->
+    <footer class="dock">
+        <div class="dock-icon" id="refresh" title="刷新"><i class="fa fa-refresh"></i></div>
+        <div class="dock-icon" id="favorite" title="收藏"><i class="fa fa-heart"></i></div>
+        <div class="dock-icon" id="fullscreen" title="全屏"><i class="fa fa-expand"></i></div>
+        <div class="dock-icon" id="hide" title="隐藏内容"><i class="fa fa-eye-slash"></i></div>
+    </footer>
+
     <script>
-        function an1() {
-            window.location.href = 'https://www.sdocapp.com/s/iPeHhKEvFb2riSkRF';
-        }
-        function an2() {
-            window.location.href = 'png.html';
-        }
-        function an3() {
-            window.location.href = 'https://test.ustc.edu.cn/';
-        }
-        function an4() {
-            window.location.href = 'https://wwvs.lanzoub.com/b02q3ivkb';
-        }
-        function an5() {
-            window.location.href = 'tz.html';
-        }
-        function an6() {
-            window.location.href = 'https://yandex.com/';
-        }
-        function an7() {
-            window.location.href = 'https://www.yuque.com/yuqueyonghuxd6cxl/qdzxvy/bgbnhio8qwwgbypv?';
-        }
-        function an8() {
-            window.location.href = 'https://www.toolnb.com/tools/fangzhan.html';
-        }
-        function an9() {
-            window.location.href = 'https://www.testufo.com/';
-        }
-        function an10() {
-            window.location.href = 'bata.html';
-        }
-        function an11() {
-            window.location.href = 'https://magisk.suchenqaq.club/';
-        }
-        function ann1() {
-            window.location.href = 'index.html';
-        }
-        function ann2() {
-            alert("♥");
-        }
-        // 全屏
-        var btn = document.getElementById("qp");
-        btn.addEventListener("click", function() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-                document.documentElement.msRequestFullscreen();
-            }
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+            bindRipple();
+            bindDockEvents();
+            preloadBg();
         });
-        // 全屏
-        document.getElementById('ann3').onclick = function () {
-            document.getElementById('controls').style.display = 'none';
-            document.getElementById('controls1').style.display = 'none';
+
+        // 按钮涟漪效果
+        function bindRipple() {
+            document.querySelectorAll('.button').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    const oldRipples = btn.querySelectorAll('.ripple');
+                    oldRipples.forEach(ripple => ripple.remove());
+                    
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    const rect = btn.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+                    ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+                    btn.appendChild(ripple);
+                });
+            });
         }
-        // 全屏
+
+        // Dock栏功能
+        function bindDockEvents() {
+            // 刷新
+            document.getElementById('refresh').addEventListener('click', () => location.reload());
+            
+            // 收藏动画（红色+占屏幕50%）
+            document.getElementById('favorite').addEventListener('click', () => {
+                const scrollContainer = document.querySelector('.scroll-container');
+                const dock = document.querySelector('.dock');
+                
+                // 保存原始状态
+                const originalScrollOpacity = scrollContainer.style.opacity;
+                const originalDockOpacity = dock.style.opacity;
+                const originalScrollPointer = scrollContainer.style.pointerEvents;
+                const originalDockPointer = dock.style.pointerEvents;
+                
+                // 隐藏元素
+                scrollContainer.style.opacity = '0';
+                dock.style.opacity = '0';
+                scrollContainer.style.pointerEvents = 'none';
+                dock.style.pointerEvents = 'none';
+                
+                // 创建爱心元素（红色+50%屏幕大小）
+                const heart = document.createElement('div');
+                heart.innerHTML = `<i class="fa fa-heart" style="color: var(--red); text-shadow: 0 0 20px rgba(255, 51, 102, 0.8);"></i>`;
+                heart.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 50vw; /* 占屏幕宽度的50% */
+                    opacity: 0;
+                    z-index: 100;
+                    pointer-events: none;
+                    transition: all 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+                `;
+                document.body.appendChild(heart);
+                
+                // 显示动画
+                setTimeout(() => {
+                    heart.style.opacity = '1';
+                    heart.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                }, 100);
+                
+                // 动画峰值后略微收缩
+                setTimeout(() => {
+                    heart.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 800);
+                
+                // 动画结束后恢复显示
+                setTimeout(() => {
+                    heart.style.opacity = '0';
+                    heart.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    setTimeout(() => {
+                        heart.remove();
+                        // 恢复元素显示
+                        scrollContainer.style.opacity = originalScrollOpacity || '1';
+                        dock.style.opacity = originalDockOpacity || '1';
+                        scrollContainer.style.pointerEvents = originalScrollPointer || 'auto';
+                        dock.style.pointerEvents = originalDockPointer || 'auto';
+                    }, 600);
+                }, 1800);
+            });
+
+            // 全屏切换
+            const fullscreenBtn = document.getElementById('fullscreen');
+            fullscreenBtn.addEventListener('click', () => {
+                const isFull = !!document.fullscreenElement;
+                if (isFull) {
+                    document.exitFullscreen();
+                    fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
+                } else {
+                    document.documentElement.requestFullscreen().catch(e => console.log('全屏失败:', e));
+                    fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
+                }
+            });
+
+            // 内容隐藏/显示
+            let hidden = false;
+            const main = document.querySelector('main');
+            const dock = document.querySelector('.dock');
+            const hideBtn = document.getElementById('hide');
+            
+            hideBtn.addEventListener('click', () => {
+                hidden = !hidden;
+                if (hidden) {
+                    main.style.opacity = '0';
+                    main.style.pointerEvents = 'none';
+                    dock.style.opacity = '0';
+                    hideBtn.innerHTML = '<i class="fa fa-eye"></i>';
+                    hideBtn.title = '显示内容';
+                } else {
+                    main.style.opacity = '1';
+                    main.style.pointerEvents = 'auto';
+                    dock.style.opacity = '1';
+                    hideBtn.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                    hideBtn.title = '隐藏内容';
+                }
+            });
+        }
+
+        // 背景图预加载
+        function preloadBg() {
+            const img = new Image();
+            img.src = 'https://img.8845.top/acg';
+            img.onerror = () => document.body.classList.add('bg-fail');
+        }
     </script>
 </body>
 </html>
