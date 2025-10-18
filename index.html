@@ -23,7 +23,7 @@
             to { transform: scale(2); opacity: 0; }
         }
 
-        /* 图标样式 - 替代Font Awesome */
+        /* 图标样式 */
         .fa {
             display: inline-block;
             width: 1em;
@@ -42,6 +42,8 @@
         .fa-compress::before { content: "▦"; }
         .fa-eye-slash::before { content: "◔"; }
         .fa-eye::before { content: "👁"; }
+        .fa-search-plus::before { content: "+"; }
+        .fa-search-minus::before { content: "−"; }
 
         /* 全局重置 */
         * {
@@ -61,7 +63,6 @@
             align-items: center;
             padding-top: 20px;
             position: relative;
-            /* 新增：确保body无多余内边距 */
             padding-bottom: 0;
             margin-bottom: 0;
         }
@@ -80,7 +81,6 @@
         .scroll-container {
             width: 100%;
             max-width: 600px;
-            /* 调整高度计算，确保内容区域充足 */
             height: calc(100vh - 110px);
             overflow-y: auto;
             overflow-x: hidden;
@@ -103,7 +103,6 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease-out, transform 1s ease-out;
-            /* 确保main无底部多余间距 */
             margin-bottom: 15px;
         }
         body.loaded main {
@@ -120,12 +119,33 @@
             line-height: 1.6;
         }
 
+        /* 缩放控制栏 */
+        .zoom-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .zoom-level {
+            min-width: 40px;
+            text-align: center;
+            color: var(--gold);
+            padding: 5px 0;
+        }
+        .zoom-control-btn {
+            padding: 5px 10px;
+            justify-content: center;
+            min-width: 36px;
+        }
+
         /* 按钮网格布局 */
         .button-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 12px;
-            margin-bottom: 20px; /* 保持与浏览框的间距 */
+            margin-bottom: 20px;
         }
 
         /* 统一按钮样式 */
@@ -189,35 +209,35 @@
             z-index: 0;
         }
 
-        /* 修复后的浏览框样式 */
-        .browser-card {
-            margin-top: 20px;
+        /* 浏览框样式 */
+        .browser-container {
             width: 100%;
-            /* 关键修复：使用固定高度而非最小高度，确保内容区域完整 */
+            overflow: auto;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+        .browser-card {
+            width: 100%;
             height: 400px;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
             transition: var(--transition);
-            /* 确保无额外内边距导致的间隙 */
-            padding: 0;
-            margin-bottom: 0;
         }
         .browser-card:hover {
             box-shadow: 0 8px 30px rgba(0,0,0,0.4);
         }
         .browser-iframe {
             width: 100%;
-            /* 关键修复：iframe高度100%充满容器 */
             height: 100%;
             border: none;
-            /* 移除可能的边框和内边距 */
             padding: 0;
             margin: 0;
-            display: block; /* 消除inline元素的基线间隙 */
+            display: block;
+            transition: transform 0.3s ease;
+            transform-origin: top left;
         }
-        /* Chrome/Safari 浏览器隐藏iframe滚动条 */
         .browser-iframe::-webkit-scrollbar {
             display: none !important;
         }
@@ -264,9 +284,15 @@
             }
             .dock { gap: 12px; padding: 8px 12px; }
             .dock-icon { width: 36px; height: 36px; font-size: 0.9em; }
-            /* 移动端调整浏览框高度 */
             .browser-card {
                 height: 320px;
+            }
+            .zoom-controls {
+                gap: 8px;
+            }
+            .zoom-control-btn {
+                min-width: 32px;
+                padding: 4px 8px;
             }
         }
 
@@ -291,20 +317,37 @@
                 </a>
             </div>
 
-            <!-- 修复间隙的浏览框 -->
-            <div class="browser-card">
-                <iframe class="browser-iframe" 
-                        src="https://sdocapp.com/s/iPeHhKEvFb2riSkRF" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen></iframe>
+            <!-- 缩放控制栏 -->
+            <div class="zoom-controls">
+                <button class="button zoom-control-btn" id="iframeRefresh" title="刷新网页">
+                    <i class="fa fa-refresh"></i>
+                </button>
+                <button class="button zoom-control-btn" id="iframeZoomOut" title="缩小">
+                    <i class="fa fa-search-minus"></i>
+                </button>
+                <span class="zoom-level" id="zoomLevel">100%</span>
+                <button class="button zoom-control-btn" id="iframeZoomIn" title="放大">
+                    <i class="fa fa-search-plus"></i>
+                </button>
+            </div>
+
+            <!-- 浏览框容器 -->
+            <div class="browser-container">
+                <div class="browser-card">
+                    <iframe class="browser-iframe" 
+                            id="contentIframe"
+                            src="https://sdocapp.com/s/iPeHhKEvFb2riSkRF" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
             </div>
         </main>
     </div>
 
     <!-- 底部功能栏 -->
     <footer class="dock">
-        <div class="dock-icon" id="refresh" title="刷新"><i class="fa fa-refresh"></i></div>
-        <div class="dock-icon" id="fullscreen" title="全屏"><i class="fa fa-expand"></i></div>
+        <div class="dock-icon" id="refresh" title="刷新页面"><i class="fa fa-refresh"></i></div>
+        <div class="dock-icon" id="fullscreen" title="全屏整个页面"><i class="fa fa-expand"></i></div>
         <div class="dock-icon" id="hide" title="隐藏内容"><i class="fa fa-eye-slash"></i></div>
     </footer>
 
@@ -316,6 +359,7 @@
             }, 100);
             bindRipple();
             bindDockEvents();
+            bindZoomControls();
             preloadBg();
         });
 
@@ -338,21 +382,89 @@
             });
         }
 
-        // Dock栏功能
-        function bindDockEvents() {
-            // 刷新
-            document.getElementById('refresh').addEventListener('click', () => location.reload());
+        // 缩放控制与浏览框刷新功能
+        function bindZoomControls() {
+            const iframe = document.getElementById('contentIframe');
+            const zoomLevelDisplay = document.getElementById('zoomLevel');
+            let zoomLevel = 100; // 百分比
+            const zoomStep = 10; // 每次缩放步长
+            const minZoom = 50;  // 最小缩放
+            const maxZoom = 200; // 最大缩放
 
-            // 全屏切换
+            // 应用缩放
+            function applyZoom() {
+                const scale = zoomLevel / 100;
+                iframe.style.transform = `scale(${scale})`;
+                iframe.style.width = `${100 / scale}%`;
+                iframe.style.height = `${100 / scale}%`;
+                zoomLevelDisplay.textContent = `${zoomLevel}%`;
+            }
+
+            // 缩小
+            document.getElementById('iframeZoomOut').addEventListener('click', () => {
+                if (zoomLevel > minZoom) {
+                    zoomLevel -= zoomStep;
+                    applyZoom();
+                }
+            });
+
+            // 放大
+            document.getElementById('iframeZoomIn').addEventListener('click', () => {
+                if (zoomLevel < maxZoom) {
+                    zoomLevel += zoomStep;
+                    applyZoom();
+                }
+            });
+
+            // 刷新浏览框网页
+            document.getElementById('iframeRefresh').addEventListener('click', () => {
+                const currentZoom = zoomLevel;
+                iframe.src = iframe.src;
+                iframe.onload = () => {
+                    zoomLevel = currentZoom;
+                    applyZoom();
+                };
+            });
+
+            // 初始应用100%缩放
+            applyZoom();
+        }
+
+        // Dock栏功能（修复全屏问题）
+        function bindDockEvents() {
+            // 页面整体刷新
+            document.getElementById('refresh').addEventListener('click', () => {
+                location.reload();
+            });
+
+            // 修复全屏功能：全屏整个页面而非仅浏览框
             const fullscreenBtn = document.getElementById('fullscreen');
             fullscreenBtn.addEventListener('click', () => {
                 const isFull = !!document.fullscreenElement;
+                
                 if (isFull) {
-                    document.exitFullscreen();
+                    // 退出全屏
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) { // 兼容webkit内核浏览器
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) { // 兼容IE
+                        document.msExitFullscreen();
+                    }
                     fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
+                    fullscreenBtn.title = '全屏整个页面';
                 } else {
-                    document.documentElement.requestFullscreen().catch(e => console.log('全屏失败:', e));
+                    // 进入全屏（针对整个文档）
+                    const docEl = document.documentElement;
+                    if (docEl.requestFullscreen) {
+                        docEl.requestFullscreen();
+                    } else if (docEl.webkitRequestFullscreen) { // 兼容webkit内核浏览器
+                        docEl.webkitRequestFullscreen();
+                    } else if (docEl.msRequestFullscreen) { // 兼容IE
+                        docEl.msRequestFullscreen();
+                    }
                     fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
+                    fullscreenBtn.title = '退出全屏';
                 }
             });
 
