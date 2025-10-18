@@ -57,7 +57,7 @@
             font-family: 'Microsoft YaHei', sans-serif;
             min-height: 100vh;
             color: #fff;
-            background: url("https://img.8845.top/acg") center/cover fixed;
+            background: url("https://loliapi.com/acg/") center/cover fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -309,11 +309,23 @@
         <main>
             <p class="vpn-note">YINGpro</p>
 
-            <!-- 功能按钮 -->
+            <!-- 功能按钮（移除target="_blank"，后续通过JS控制加载到iframe） -->
             <div class="button-grid">
-                <a href="https://bing.com" class="button" target="_blank" rel="noopener">
+                <a href="https://bing.com" class="button" rel="noopener">
                     <i class="fa fa-circle-o"></i>
-                    <span>BING</span>
+                    <span>按钮1</span>
+                </a>
+                <a href="https://baidu.com" class="button" rel="noopener">
+                    <i class="fa fa-circle-o"></i>
+                    <span>按钮2</span>
+                </a>
+                <a href="https://ai.com" class="button" rel="noopener">
+                    <i class="fa fa-circle-o"></i>
+                    <span>按钮3</span>
+                </a>
+                <a href="https://7723.cn" class="button" rel="noopener">
+                    <i class="fa fa-circle-o"></i>
+                    <span>按钮3</span>
                 </a>
             </div>
 
@@ -360,8 +372,29 @@
             bindRipple();
             bindDockEvents();
             bindZoomControls();
+            bindButtonNavigation(); // 新增：绑定按钮导航事件
             preloadBg();
         });
+
+        // 新增：绑定按钮点击事件，加载链接到iframe
+        function bindButtonNavigation() {
+            const iframe = document.getElementById('contentIframe');
+            const buttons = document.querySelectorAll('.button-grid .button'); // 选择按钮网格中的按钮
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); // 阻止默认跳转行为
+                    const url = button.getAttribute('href'); // 获取按钮的链接
+                    if (url) {
+                        iframe.src = url; // 加载链接到iframe
+                        // 加载完成后保持当前缩放比例
+                        iframe.onload = () => {
+                            applyZoom(); // 复用缩放函数，保持缩放一致性
+                        };
+                    }
+                });
+            });
+        }
 
         // 按钮涟漪效果
         function bindRipple() {
@@ -391,8 +424,8 @@
             const minZoom = 50;  // 最小缩放
             const maxZoom = 200; // 最大缩放
 
-            // 应用缩放
-            function applyZoom() {
+            // 应用缩放（改为全局可访问，供按钮导航使用）
+            window.applyZoom = function() {
                 const scale = zoomLevel / 100;
                 iframe.style.transform = `scale(${scale})`;
                 iframe.style.width = `${100 / scale}%`;
@@ -430,39 +463,31 @@
             applyZoom();
         }
 
-        // Dock栏功能（修复全屏问题）
+        // Dock栏功能
         function bindDockEvents() {
             // 页面整体刷新
             document.getElementById('refresh').addEventListener('click', () => {
                 location.reload();
             });
 
-            // 修复全屏功能：全屏整个页面而非仅浏览框
+            // 全屏功能
             const fullscreenBtn = document.getElementById('fullscreen');
             fullscreenBtn.addEventListener('click', () => {
                 const isFull = !!document.fullscreenElement;
                 
                 if (isFull) {
                     // 退出全屏
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.webkitExitFullscreen) { // 兼容webkit内核浏览器
-                        document.webkitExitFullscreen();
-                    } else if (document.msExitFullscreen) { // 兼容IE
-                        document.msExitFullscreen();
-                    }
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
                     fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
                     fullscreenBtn.title = '全屏整个页面';
                 } else {
-                    // 进入全屏（针对整个文档）
+                    // 进入全屏
                     const docEl = document.documentElement;
-                    if (docEl.requestFullscreen) {
-                        docEl.requestFullscreen();
-                    } else if (docEl.webkitRequestFullscreen) { // 兼容webkit内核浏览器
-                        docEl.webkitRequestFullscreen();
-                    } else if (docEl.msRequestFullscreen) { // 兼容IE
-                        docEl.msRequestFullscreen();
-                    }
+                    if (docEl.requestFullscreen) docEl.requestFullscreen();
+                    else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+                    else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
                     fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
                     fullscreenBtn.title = '退出全屏';
                 }
@@ -495,7 +520,7 @@
         // 背景图预加载
         function preloadBg() {
             const img = new Image();
-            img.src = 'https://img.8845.top/acg';
+            img.src = 'https://loliapi.com/acg/';
             img.onerror = () => document.body.classList.add('bg-fail');
         }
     </script>
