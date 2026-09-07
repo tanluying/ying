@@ -1,528 +1,843 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YINGpro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔧 螺栓螺母扳手尺寸刷题</title>
     <style>
-        :root {
-            --gold: #FFD700;
-            --red: #ff3366;
-            --glass: rgba(255, 255, 255, 0.08);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            --transition: all 0.3s ease;
-        }
-
-        /* 核心动画 */
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
-            100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-        }
-        @keyframes ripple {
-            to { transform: scale(2); opacity: 0; }
-        }
-
-        /* 图标样式 */
-        .fa {
-            display: inline-block;
-            width: 1em;
-            height: 1em;
-            font-family: sans-serif;
-            font-style: normal;
-            font-weight: normal;
-            line-height: 1;
-            text-transform: none;
-            vertical-align: middle;
-        }
-        
-        .fa-circle-o::before { content: "⚪"; }
-        .fa-refresh::before { content: "↺"; }
-        .fa-expand::before { content: "⛶"; }
-        .fa-compress::before { content: "▦"; }
-        .fa-eye-slash::before { content: "◔"; }
-        .fa-eye::before { content: "👁"; }
-        .fa-search-plus::before { content: "+"; }
-        .fa-search-minus::before { content: "−"; }
-
-        /* 全局重置 */
+        /* ===== 全局重置 & 字体 ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-weight: bold;
         }
 
         body {
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f1f5f9;
             min-height: 100vh;
-            color: #fff;
-            background: url("https://loliapi.com/acg/") center/cover fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            position: relative;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        /* 背景增强层 */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.2), rgba(0,0,0,0.7));
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* 滚动容器 */
-        .scroll-container {
-            width: 100%;
-            max-width: 600px;
-            height: calc(100vh - 110px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-            transition: opacity 0.5s ease, pointer-events 0.5s ease;
-        }
-        .scroll-container::-webkit-scrollbar { display: none; }
-
-        /* 主体容器 */
-        main {
-            width: 90%;
-            max-width: 600px;
-            padding: 25px 30px;
-            margin: 0 auto;
-            border-radius: 15px;
-            backdrop-filter: blur(12px);
-            background: var(--glass);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-            margin-bottom: 15px;
-        }
-        body.loaded main {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 说明文本 */
-        .vpn-note {
-            font-size: 0.85em;
-            color: #f5f5f5;
-            margin-bottom: 20px;
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        /* 缩放控制栏 */
-        .zoom-controls {
             display: flex;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10), 0 8px 24px rgba(0, 0, 0, 0.04);
+            max-width: 640px;
+            width: 100%;
+            padding: 30px 28px 36px;
+            transition: box-shadow 0.2s;
+        }
+
+        /* ===== 标题 ===== */
+        .header {
+            display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
         }
-        .zoom-level {
-            min-width: 40px;
-            text-align: center;
-            color: var(--gold);
-            padding: 5px 0;
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .zoom-control-btn {
-            padding: 5px 10px;
-            justify-content: center;
-            min-width: 36px;
+        .header h1 span {
+            font-size: 26px;
+        }
+        .header .badge {
+            background: #e2e8f0;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin-left: auto;
+            white-space: nowrap;
         }
 
-        /* 按钮网格布局 */
-        .button-grid {
+        /* ===== 模式切换 ===== */
+        .mode-tabs {
+            display: flex;
+            gap: 6px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+        .mode-tabs button {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 10px 6px;
+            border-radius: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.2px;
+            position: relative;
+        }
+        .mode-tabs button:hover {
+            color: #1e293b;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .mode-tabs button.active {
+            background: #ffffff;
+            color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+        .mode-tabs button .count {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            background: #e2e8f0;
+            color: #64748b;
+            padding: 0 8px;
+            border-radius: 20px;
+            margin-left: 4px;
+        }
+        .mode-tabs button.active .count {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        /* ===== 进度 & 得分栏 ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #475569;
+            padding: 0 4px 16px 4px;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .stats-bar .progress-text {
+            font-weight: 500;
+        }
+        .stats-bar .score {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 500;
+        }
+        .stats-bar .score .correct {
+            color: #16a34a;
+        }
+        .stats-bar .score .wrong {
+            color: #dc2626;
+        }
+        .stats-bar .score .rate {
+            color: #2563eb;
+            font-weight: 600;
+            background: #eff6ff;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+
+        /* ===== 题目卡片 ===== */
+        .question-area {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0f172a;
+            text-align: center;
+            padding: 12px 0 24px;
+            line-height: 1.4;
+        }
+        .question-text .highlight {
+            color: #2563eb;
+        }
+
+        /* ===== 选项列表 ===== */
+        .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
+        @media (max-width: 480px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-        /* 统一按钮样式 */
-        .button {
-            padding: 12px 15px;
-            font-size: 1em;
-            border-radius: 25px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            border: 1px solid rgba(255, 255, 255, 0);
+        .option-btn {
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 14px 12px;
+            font-size: 17px;
+            font-weight: 500;
+            color: #0f172a;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 8px;
+            transition: all 0.2s ease;
+            text-align: center;
             position: relative;
-            overflow: hidden;
-            z-index: 1;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0);
-        }
-
-        .button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.7s ease;
-            z-index: -1;
-        }
-        .button:hover::before {
-            left: 100%;
-        }
-
-        .button i {
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* 涟漪效果 */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            transform: scale(0);
-            animation: ripple 0.8s linear forwards;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* 浏览框样式 */
-        .browser-container {
-            width: 100%;
-            overflow: auto;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-        .browser-card {
-            width: 100%;
-            height: 400px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: var(--transition);
-        }
-        .browser-card:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-        .browser-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            padding: 0;
-            margin: 0;
-            display: block;
-            transition: transform 0.3s ease;
-            transform-origin: top left;
-        }
-        .browser-iframe::-webkit-scrollbar {
-            display: none !important;
-        }
-
-        /* 底部Dock栏 */
-        .dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(12px);
-            background: var(--glass);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 10;
-            transition: opacity 0.5s ease, pointer-events 0.5s ease;
-        }
-        .dock-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            gap: 8px;
+        }
+        .option-btn .label {
+            display: inline-block;
+            font-weight: 600;
+            color: #94a3b8;
+            font-size: 14px;
+            min-width: 22px;
+        }
+        .option-btn .value {
+            font-weight: 600;
+        }
+        .option-btn:hover:not(.disabled) {
+            border-color: #93b4f8;
+            background: #f8faff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        }
+        .option-btn:active:not(.disabled) {
+            transform: translateY(0);
+        }
+        .option-btn.disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+        .option-btn.correct {
+            border-color: #16a34a;
+            background: #f0fdf4;
+            opacity: 1;
+        }
+        .option-btn.correct .label {
+            color: #16a34a;
+        }
+        .option-btn.wrong {
+            border-color: #dc2626;
+            background: #fef2f2;
+            opacity: 1;
+        }
+        .option-btn.wrong .label {
+            color: #dc2626;
+        }
+        .option-btn.reveal-correct {
+            border-color: #16a34a;
+            background: #f0fdf4;
+            opacity: 1;
+        }
+        .option-btn.reveal-correct .label {
+            color: #16a34a;
+        }
+
+        /* ===== 反馈区域 ===== */
+        .feedback {
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 14px;
+            padding: 8px 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        .feedback.hidden {
+            opacity: 0;
+            min-height: 0;
+            padding: 0 16px;
+            margin-bottom: 0;
+        }
+        .feedback.correct-fb {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+        .feedback.wrong-fb {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .feedback .fb-answer {
+            font-weight: 700;
+            margin: 0 4px;
+        }
+
+        /* ===== 底部操作栏 ===== */
+        .action-row {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .action-row .btn-next {
+            flex: 1;
+            min-width: 120px;
+            border: none;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+            letter-spacing: 0.3px;
         }
-        .dock-icon:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.15);
+        .action-row .btn-next:hover:not(:disabled) {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.30);
+        }
+        .action-row .btn-next:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        .action-row .btn-next:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .action-row .btn-reset {
+            border: 2px solid #e2e8f0;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .action-row .btn-reset:hover {
+            border-color: #94a3b8;
+            background: #f8fafc;
+            color: #0f172a;
         }
 
-        /* 移动端适配 */
-        @media (max-width: 480px) {
-            .button-grid { grid-template-columns: 1fr; }
-            .button { 
-                font-size: 0.9em; 
-                padding: 12px 10px; 
-            }
-            .dock { gap: 12px; padding: 8px 12px; }
-            .dock-icon { width: 36px; height: 36px; font-size: 0.9em; }
-            .browser-card {
-                height: 320px;
-            }
-            .zoom-controls {
-                gap: 8px;
-            }
-            .zoom-control-btn {
-                min-width: 32px;
-                padding: 4px 8px;
-            }
+        /* ===== 完成状态 ===== */
+        .complete-msg {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .complete-msg .big-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        /* 背景加载失败降级 */
-        body.bg-fail {
-            background: none;
-            background-color: #1a1a2e;
+        /* ===== 工具类 ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== 动画 ===== */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeSlideUp 0.3s ease forwards;
+        }
+
+        /* ===== 滚动条美化 ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
 </head>
 <body>
-    <!-- 滚动容器 -->
-    <div class="scroll-container">
-        <main>
-            <p class="vpn-note">YINGpro</p>
 
-            <!-- 功能按钮（移除target="_blank"，后续通过JS控制加载到iframe） -->
-            <div class="button-grid">
-                <a href="https://loliapi.com/acg/" class="button" rel="noopener">
-                    <i class="fa fa-circle-o"></i>
-                    <span>图片</span>
-                </a>
-                <a href="https://test.ustc.edu.cn/" class="button" rel="noopener">
-                    <i class="fa fa-circle-o"></i>
-                    <span>中科大测速</span>
-                </a>
-                <a href="https://ai.com" class="button" rel="noopener">
-                    <i class="fa fa-circle-o"></i>
-                    <span>按钮3</span>
-                </a>
-                <a href="https://7723.cn" class="button" rel="noopener">
-                    <i class="fa fa-circle-o"></i>
-                    <span>按钮3</span>
-                </a>
+    <div class="container" id="app">
+        <!-- 标题 -->
+        <div class="header">
+            <h1><span>🔧</span> 尺寸刷题</h1>
+            <span class="badge" id="modeLabel">螺栓扳手</span>
+        </div>
+
+        <!-- 模式切换 -->
+        <div class="mode-tabs" id="modeTabs">
+            <button data-mode="bolt" class="active">螺栓扳手 <span class="count">8</span></button>
+            <button data-mode="nut">螺母扳手 <span class="count">8</span></button>
+            <button data-mode="tap">丝锥底孔 <span class="count">14</span></button>
+        </div>
+
+        <!-- 统计栏 -->
+        <div class="stats-bar">
+            <span class="progress-text" id="progressText">第 1 题</span>
+            <div class="score">
+                <span class="correct">✅ <span id="correctCount">0</span></span>
+                <span class="wrong">❌ <span id="wrongCount">0</span></span>
+                <span class="rate" id="rateDisplay">0%</span>
+            </div>
+        </div>
+
+        <!-- 题目区域 -->
+        <div class="question-area" id="questionArea">
+            <div class="question-text" id="questionText">
+                <span class="highlight">M8</span> 螺栓对应的扳手尺寸是？
             </div>
 
-            <!-- 缩放控制栏 -->
-            <div class="zoom-controls">
-                <button class="button zoom-control-btn" id="iframeRefresh" title="刷新网页">
-                    <i class="fa fa-refresh"></i>
-                </button>
-                <button class="button zoom-control-btn" id="iframeZoomOut" title="缩小">
-                    <i class="fa fa-search-minus"></i>
-                </button>
-                <span class="zoom-level" id="zoomLevel">100%</span>
-                <button class="button zoom-control-btn" id="iframeZoomIn" title="放大">
-                    <i class="fa fa-search-plus"></i>
-                </button>
+            <div class="options-grid" id="optionsGrid">
+                <!-- 由 JS 动态生成 -->
             </div>
 
-            <!-- 浏览框容器 -->
-            <div class="browser-container">
-                <div class="browser-card">
-                    <iframe class="browser-iframe" 
-                            id="contentIframe"
-                            src="" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen></iframe>
-                </div>
+            <div class="feedback hidden" id="feedback"></div>
+
+            <div class="action-row">
+                <button class="btn-next" id="btnNext" disabled>下一题 →</button>
+                <button class="btn-reset" id="btnReset">🔄 重新开始</button>
             </div>
-        </main>
+        </div>
     </div>
 
-    <!-- 底部功能栏 -->
-    <footer class="dock">
-        <div class="dock-icon" id="refresh" title="刷新页面"><i class="fa fa-refresh"></i></div>
-        <div class="dock-icon" id="fullscreen" title="全屏整个页面"><i class="fa fa-expand"></i></div>
-        <div class="dock-icon" id="hide" title="隐藏内容"><i class="fa fa-eye-slash"></i></div>
-    </footer>
-
     <script>
-        // 初始化
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 100);
-            bindRipple();
-            bindDockEvents();
-            bindZoomControls();
-            bindButtonNavigation(); // 新增：绑定按钮导航事件
-            preloadBg();
-        });
+        // ============================================================
+        //  数据
+        // ============================================================
+        const DATA = {
+            bolt: {
+                label: '螺栓扳手',
+                pairs: {
+                    'M4': 3,
+                    'M5': 4,
+                    'M6': 5,
+                    'M8': 6,
+                    'M10': 8,
+                    'M12': 10,
+                    'M14': 12,
+                    'M16': 14
+                },
+                questionTemplate: (key) =>
+                    `<span class="highlight">${key}</span> 螺栓对应的扳手尺寸是？`,
+                unit: 'mm'
+            },
+            nut: {
+                label: '螺母扳手',
+                pairs: {
+                    'M4': 7,
+                    'M5': 8,
+                    'M6': 10,
+                    'M8': 13,
+                    'M10': 16,
+                    'M12': 18,
+                    'M14': 21,
+                    'M16': 24
+                },
+                questionTemplate: (key) =>
+                    `<span class="highlight">${key}</span> 螺母对应的扳手尺寸是？`,
+                unit: 'mm'
+            },
+            tap: {
+                label: '丝锥底孔',
+                pairs: {
+                    'M3': 2.5,
+                    'M4': 3.3,
+                    'M5': 4.2,
+                    'M6': 5,
+                    'M8': 6.8,
+                    'M10': 8.5,
+                    'M12': 10.3,
+                    'M14': 12,
+                    'M16': 14,
+                    'M18': 15.5,
+                    'M20': 17.6,
+                    'M22': 19.6,
+                    'M24': 21.1,
+                    'M30': 26.6
+                },
+                questionTemplate: (key) =>
+                    `<span class="highlight">${key}</span> 丝锥的底孔直径是？`,
+                unit: 'mm'
+            }
+        };
 
-        // 新增：绑定按钮点击事件，加载链接到iframe
-        function bindButtonNavigation() {
-            const iframe = document.getElementById('contentIframe');
-            const buttons = document.querySelectorAll('.button-grid .button'); // 选择按钮网格中的按钮
-            
-            buttons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault(); // 阻止默认跳转行为
-                    const url = button.getAttribute('href'); // 获取按钮的链接
-                    if (url) {
-                        iframe.src = url; // 加载链接到iframe
-                        // 加载完成后保持当前缩放比例
-                        iframe.onload = () => {
-                            applyZoom(); // 复用缩放函数，保持缩放一致性
-                        };
-                    }
-                });
-            });
+        // 选项标签
+        const LABELS = ['A', 'B', 'C', 'D'];
+
+        // ============================================================
+        //  状态
+        // ============================================================
+        const state = {
+            mode: 'bolt', // 'bolt' | 'nut' | 'tap'
+            queue: [], // 当前模式下的题目队列 (key 数组)
+            currentKey: null, // 当前题目 key
+            currentAnswer: null, // 当前题目正确答案 (数值)
+            isAnswered: false,
+            correctCount: 0,
+            wrongCount: 0,
+            totalAttempts: 0, // 总答题数 (正确+错误)
+            // 每个模式独立的队列
+            queues: {
+                bolt: [],
+                nut: [],
+                tap: []
+            }
+        };
+
+        // ============================================================
+        //  DOM 引用
+        // ============================================================
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const elModeTabs = $('#modeTabs');
+        const elModeLabel = $('#modeLabel');
+        const elProgressText = $('#progressText');
+        const elCorrectCount = $('#correctCount');
+        const elWrongCount = $('#wrongCount');
+        const elRateDisplay = $('#rateDisplay');
+        const elQuestionText = $('#questionText');
+        const elOptionsGrid = $('#optionsGrid');
+        const elFeedback = $('#feedback');
+        const elBtnNext = $('#btnNext');
+        const elBtnReset = $('#btnReset');
+
+        // ============================================================
+        //  工具函数
+        // ============================================================
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
-        // 按钮涟漪效果
-        function bindRipple() {
-            document.querySelectorAll('.button').forEach(btn => {
-                btn.addEventListener('click', e => {
-                    const oldRipples = btn.querySelectorAll('.ripple');
-                    oldRipples.forEach(ripple => ripple.remove());
-                    
-                    const ripple = document.createElement('span');
-                    ripple.className = 'ripple';
-                    const rect = btn.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    ripple.style.width = ripple.style.height = `${size}px`;
-                    ripple.style.left = `${e.clientX - rect.left - size/2}px`;
-                    ripple.style.top = `${e.clientY - rect.top - size/2}px`;
-                    btn.appendChild(ripple);
-                });
-            });
+        // 从数组中随机取 n 个不同元素 (不包含 exclude)
+        function pickRandomDistinct(arr, n, exclude) {
+            const pool = arr.filter(v => v !== exclude);
+            const shuffled = shuffle([...pool]);
+            return shuffled.slice(0, n);
         }
 
-        // 缩放控制与浏览框刷新功能
-        function bindZoomControls() {
-            const iframe = document.getElementById('contentIframe');
-            const zoomLevelDisplay = document.getElementById('zoomLevel');
-            let zoomLevel = 100; // 百分比
-            const zoomStep = 10; // 每次缩放步长
-            const minZoom = 50;  // 最小缩放
-            const maxZoom = 200; // 最大缩放
+        // 格式化数值 (保留一位小数，如果是整数则不显示 .0)
+        function formatNum(v) {
+            if (Number.isInteger(v)) return String(v);
+            return v.toFixed(1);
+        }
 
-            // 应用缩放（改为全局可访问，供按钮导航使用）
-            window.applyZoom = function() {
-                const scale = zoomLevel / 100;
-                iframe.style.transform = `scale(${scale})`;
-                iframe.style.width = `${100 / scale}%`;
-                iframe.style.height = `${100 / scale}%`;
-                zoomLevelDisplay.textContent = `${zoomLevel}%`;
+        // ============================================================
+        //  核心逻辑
+        // ============================================================
+
+        // 获取当前模式数据
+        function getModeData() {
+            return DATA[state.mode];
+        }
+
+        // 获取当前模式的所有 key 列表
+        function getKeys() {
+            const data = getModeData();
+            return Object.keys(data.pairs);
+        }
+
+        // 获取当前模式的所有值列表 (用于生成干扰项)
+        function getAllValues() {
+            const data = getModeData();
+            return Object.values(data.pairs);
+        }
+
+        // 初始化队列 (打乱)
+        function initQueue() {
+            const keys = getKeys();
+            state.queues[state.mode] = shuffle([...keys]);
+            state.queue = state.queues[state.mode];
+        }
+
+        // 从队列中取下一题 key，若队列为空则重新填充
+        function nextKeyFromQueue() {
+            if (state.queue.length === 0) {
+                const keys = getKeys();
+                state.queue = shuffle([...keys]);
+                state.queues[state.mode] = state.queue;
+            }
+            return state.queue.pop();
+        }
+
+        // 生成一道新题目
+        function generateQuestion() {
+            const data = getModeData();
+            const key = nextKeyFromQueue();
+            const answer = data.pairs[key];
+            const allValues = getAllValues();
+
+            // 生成干扰项 (3个不同的值，且不等于正确答案)
+            let distractors = pickRandomDistinct(allValues, 3, answer);
+            // 如果干扰项不足3个，补一些相近的值 (但这里数据足够，一般不会)
+            while (distractors.length < 3) {
+                const fallback = answer + 1 + distractors.length;
+                if (!distractors.includes(fallback) && fallback !== answer) {
+                    distractors.push(fallback);
+                } else {
+                    distractors.push(answer + 2 + distractors.length);
+                }
             }
 
-            // 缩小
-            document.getElementById('iframeZoomOut').addEventListener('click', () => {
-                if (zoomLevel > minZoom) {
-                    zoomLevel -= zoomStep;
-                    applyZoom();
-                }
-            });
+            // 构建选项: 正确答案 + 3个干扰项，打乱
+            const options = shuffle([answer, ...distractors]);
 
-            // 放大
-            document.getElementById('iframeZoomIn').addEventListener('click', () => {
-                if (zoomLevel < maxZoom) {
-                    zoomLevel += zoomStep;
-                    applyZoom();
-                }
-            });
+            state.currentKey = key;
+            state.currentAnswer = answer;
+            state.isAnswered = false;
 
-            // 刷新浏览框网页
-            document.getElementById('iframeRefresh').addEventListener('click', () => {
-                const currentZoom = zoomLevel;
-                iframe.src = iframe.src;
-                iframe.onload = () => {
-                    zoomLevel = currentZoom;
-                    applyZoom();
-                };
-            });
-
-            // 初始应用100%缩放
-            applyZoom();
+            return {
+                key,
+                answer,
+                options,
+                questionHTML: data.questionTemplate(key),
+                unit: data.unit
+            };
         }
 
-        // Dock栏功能
-        function bindDockEvents() {
-            // 页面整体刷新
-            document.getElementById('refresh').addEventListener('click', () => {
-                location.reload();
+        // 渲染题目
+        function renderQuestion(q) {
+            // 题目文字
+            elQuestionText.innerHTML = q.questionHTML;
+
+            // 选项
+            elOptionsGrid.innerHTML = '';
+            q.options.forEach((val, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.dataset.value = val;
+                btn.dataset.index = idx;
+                btn.innerHTML = `
+                    <span class="label">${LABELS[idx]}.</span>
+                    <span class="value">${formatNum(val)} ${q.unit}</span>
+                `;
+                btn.addEventListener('click', () => handleOptionClick(btn, val));
+                elOptionsGrid.appendChild(btn);
             });
 
-            // 全屏功能
-            const fullscreenBtn = document.getElementById('fullscreen');
-            fullscreenBtn.addEventListener('click', () => {
-                const isFull = !!document.fullscreenElement;
-                
-                if (isFull) {
-                    // 退出全屏
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                    else if (document.msExitFullscreen) document.msExitFullscreen();
-                    fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
-                    fullscreenBtn.title = '全屏整个页面';
-                } else {
-                    // 进入全屏
-                    const docEl = document.documentElement;
-                    if (docEl.requestFullscreen) docEl.requestFullscreen();
-                    else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
-                    else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
-                    fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
-                    fullscreenBtn.title = '退出全屏';
-                }
-            });
+            // 隐藏反馈
+            elFeedback.className = 'feedback hidden';
+            elFeedback.textContent = '';
 
-            // 内容隐藏/显示
-            let hidden = false;
-            const main = document.querySelector('main');
-            const dock = document.querySelector('.dock');
-            const hideBtn = document.getElementById('hide');
-            
-            hideBtn.addEventListener('click', () => {
-                hidden = !hidden;
-                if (hidden) {
-                    main.style.opacity = '0';
-                    main.style.pointerEvents = 'none';
-                    dock.style.opacity = '0';
-                    hideBtn.innerHTML = '<i class="fa fa-eye"></i>';
-                    hideBtn.title = '显示内容';
-                } else {
-                    main.style.opacity = '1';
-                    main.style.pointerEvents = 'auto';
-                    dock.style.opacity = '1';
-                    hideBtn.innerHTML = '<i class="fa fa-eye-slash"></i>';
-                    hideBtn.title = '隐藏内容';
-                }
-            });
+            // 禁用下一题
+            elBtnNext.disabled = true;
+
+            // 更新进度
+            const total = state.correctCount + state.wrongCount + 1;
+            elProgressText.textContent = `第 ${total} 题`;
         }
 
-        // 背景图预加载
-        function preloadBg() {
-            const img = new Image();
-            img.src = 'https://loliapi.com/acg/';
-            img.onerror = () => document.body.classList.add('bg-fail');
+        // 处理选项点击
+        function handleOptionClick(btn, selectedVal) {
+            if (state.isAnswered) return;
+
+            const answer = state.currentAnswer;
+            const isCorrect = (selectedVal === answer);
+            const allBtns = elOptionsGrid.querySelectorAll('.option-btn');
+
+            // 标记已作答
+            state.isAnswered = true;
+            allBtns.forEach(b => b.classList.add('disabled'));
+
+            // 高亮正确与错误
+            allBtns.forEach(b => {
+                const val = parseFloat(b.dataset.value);
+                if (val === answer) {
+                    b.classList.add('correct');
+                }
+                if (b === btn && !isCorrect) {
+                    b.classList.add('wrong');
+                }
+                // 如果选对了，选中的按钮已经是 correct
+            });
+
+            // 如果选错，把正确答案也高亮 (已经在上面的循环中标记了 correct)
+            // 但为了视觉清晰，如果选错，我们确保正确答案有 correct 类
+            // 实际上循环中已经给正确答案加了 correct
+
+            // 更新统计
+            if (isCorrect) {
+                state.correctCount++;
+            } else {
+                state.wrongCount++;
+            }
+            state.totalAttempts++;
+            updateStats();
+
+            // 显示反馈
+            const data = getModeData();
+            const unit = data.unit;
+            const correctStr = formatNum(answer) + ' ' + unit;
+            if (isCorrect) {
+                elFeedback.className = 'feedback correct-fb fade-in';
+                elFeedback.innerHTML = `✅ 正确！答案就是 <span class="fb-answer">${correctStr}</span>`;
+            } else {
+                elFeedback.className = 'feedback wrong-fb fade-in';
+                elFeedback.innerHTML =
+                    `❌ 错误！正确答案是 <span class="fb-answer">${correctStr}</span>`;
+            }
+
+            // 启用下一题
+            elBtnNext.disabled = false;
         }
+
+        // 更新统计显示
+        function updateStats() {
+            elCorrectCount.textContent = state.correctCount;
+            elWrongCount.textContent = state.wrongCount;
+            const total = state.correctCount + state.wrongCount;
+            const rate = total === 0 ? 0 : Math.round((state.correctCount / total) * 100);
+            elRateDisplay.textContent = total === 0 ? '0%' : rate + '%';
+        }
+
+        // 加载下一题
+        function loadNextQuestion() {
+            const q = generateQuestion();
+            renderQuestion(q);
+            // 滚动到题目区域 (移动端友好)
+            document.getElementById('questionArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // 重置所有状态 (保留模式)
+        function resetAll(keepMode = true) {
+            state.correctCount = 0;
+            state.wrongCount = 0;
+            state.totalAttempts = 0;
+            state.isAnswered = false;
+            // 重新初始化队列
+            state.queues[state.mode] = shuffle([...getKeys()]);
+            state.queue = state.queues[state.mode];
+            updateStats();
+            // 加载第一题
+            loadNextQuestion();
+        }
+
+        // 切换模式
+        function switchMode(mode) {
+            if (mode === state.mode) return;
+
+            state.mode = mode;
+            // 更新标签
+            const data = getModeData();
+            elModeLabel.textContent = data.label;
+
+            // 更新 tab 激活状态
+            elModeTabs.querySelectorAll('button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+
+            // 如果该模式还没有队列，初始化
+            if (state.queues[mode].length === 0) {
+                state.queues[mode] = shuffle([...getKeys()]);
+            }
+            state.queue = state.queues[mode];
+
+            // 重置统计并加载第一题
+            state.correctCount = 0;
+            state.wrongCount = 0;
+            state.totalAttempts = 0;
+            state.isAnswered = false;
+            updateStats();
+
+            // 加载题目 (不用 resetAll 避免重复初始化队列)
+            loadNextQuestion();
+        }
+
+        // ============================================================
+        //  事件绑定
+        // ============================================================
+
+        // 模式切换
+        elModeTabs.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const mode = btn.dataset.mode;
+            if (mode) switchMode(mode);
+        });
+
+        // 下一题
+        elBtnNext.addEventListener('click', loadNextQuestion);
+
+        // 重置
+        elBtnReset.addEventListener('click', () => {
+            resetAll(true);
+        });
+
+        // ============================================================
+        //  初始化
+        // ============================================================
+
+        function init() {
+            // 初始模式 bolt
+            const mode = 'bolt';
+            state.mode = mode;
+            state.queues[mode] = shuffle([...getKeys()]);
+            state.queue = state.queues[mode];
+            elModeLabel.textContent = DATA[mode].label;
+            // 激活对应 tab
+            elModeTabs.querySelectorAll('button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+            updateStats();
+            loadNextQuestion();
+        }
+
+        init();
+
+        // ============================================================
+        //  键盘快捷键 (1-4 选择选项)
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '4') {
+                const idx = parseInt(e.key) - 1;
+                const btns = elOptionsGrid.querySelectorAll('.option-btn:not(.disabled)');
+                if (btns[idx]) {
+                    btns[idx].click();
+                }
+            }
+            // 回车或空格触发下一题
+            if ((e.key === 'Enter' || e.key === ' ') && !elBtnNext.disabled) {
+                e.preventDefault();
+                elBtnNext.click();
+            }
+        });
+
+        console.log('🔧 尺寸刷题已启动！快捷键: 1-4 选择选项, Enter 下一题');
     </script>
+
 </body>
 </html>
